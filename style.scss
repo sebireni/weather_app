@@ -1,0 +1,177 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  outline: none;
+  text-decoration: none;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+ol,
+ul,
+li {
+  list-style: none;
+  display: block;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+button,
+a {
+  cursor: pointer;
+  color: inherit;
+}
+a img {
+  border: none;
+}
+
+textarea {
+  resize: none;
+}
+
+button,
+input,
+textarea,
+select {
+  appearance: none !important;
+  border-radius: 0;
+}
+
+#root {
+  font-family: "Racing Sans One", cursive;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+
+  #cityBG {
+    width: 100%;
+    height: 100%;
+
+    object-position: center;
+    object-fit: cover;
+    opacity: 0.65;
+  }
+
+  #inpWrapper {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 400px;
+    height: 50px;
+    background-color: #eee;
+    border: none;
+    border-radius: 15px;
+
+    box-shadow: 0px 0px 8px 2px #eee;
+    color: rgb(27, 114, 136);
+
+    #cityChooser {
+      width: 100%;
+      height: 100%;
+
+      padding: 20px;
+      font-size: 16px;
+      color: rgb(27, 114, 136);
+      text-align: center;
+
+      &::placeholder {
+        text-align: center;
+      }
+
+      &:focus::placeholder {
+        color: transparent;
+      }
+    }
+  }
+
+  .outputWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    box-shadow: 0px 0px 8px 2px #eee;
+    color: rgb(27, 114, 136);
+    background-color: #44c767;
+    border-radius: 28px;
+    font-size: 17px;
+    text-decoration: none;
+
+    div {
+      background-color: #eee;
+      width: 250px;
+      height: 70px;
+      font-size: 20px;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #tempWrapper {
+      border-radius: 15px 0px 0px 15px;
+      border-right: 1px solid rgb(27, 114, 136);
+    }
+
+    #skyWrapper {
+      width: 300px;
+
+      #skyConditionIconE {
+        display: flex;
+        align-items: center;
+      }
+
+      #condIcon {
+        opacity: 0;
+
+        &.visible {
+          opacity: 1;
+        }
+      }
+    }
+
+    #humidityWrapper {
+      border-radius: 0px 15px 15px 0px;
+      border-left: 1px solid rgb(27, 114, 136);
+    }
+  }
+
+  #spinner {
+    &:not([hidden]) {
+      position: fixed;
+      top: 200px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &::after {
+      content: "";
+      width: 80px;
+      height: 80px;
+      border: 2px solid #f3f3f3;
+      border-top: 3px solid rgb(27, 114, 136);
+      border-radius: 100%;
+      will-change: transform;
+      animation: spin 1s infinite linear;
+      box-shadow: 0px 0px 8px 2px #ffffff;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
