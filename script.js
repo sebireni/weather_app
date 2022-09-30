@@ -1,16 +1,15 @@
 async function loadEvent() {
-  const rootElement = document.querySelector('#root');
+  const rootElement = document.querySelector("#root");
 
   let searchUrl =
-    'https://api.weatherapi.com/v1/search.json?key=7874ced20d8548e4ab5195616212206&q=';
+    "https://api.weatherapi.com/v1/search.json?key=7874ced20d8548e4ab5195616212206&q=";
   let currentUrl =
-    'https://api.weatherapi.com/v1/current.json?key=7874ced20d8548e4ab5195616212206&q=';
-  let iconUrl = '';
+    "https://api.weatherapi.com/v1/current.json?key=7874ced20d8548e4ab5195616212206&q=";
+  let iconUrl = "";
 
   rootElement.insertAdjacentHTML(
-    'beforeend',
+    "beforeend",
     `
-        
         <img id="cityBG" src="clouds_bg.jpg"></img>
         <div id="inpWrapper">
             <input name="cityChooser" id="cityChooser" type="text" list="filteredList" placeholder="Choose your city!"></input>
@@ -33,11 +32,11 @@ async function loadEvent() {
     `
   );
 
-  let spinner = document.getElementById('spinner');
+  let spinner = document.getElementById("spinner");
 
   function autoComplete(event) {
     let input = event.target.value;
-    let listE = document.querySelector('#filteredList');
+    let listE = document.querySelector("#filteredList");
 
     if (input.length > 3) {
       listE.innerHTML = ``;
@@ -49,29 +48,27 @@ async function loadEvent() {
         .then(function (data) {
           for (let i = 0; i < data.length; i++) {
             listE.insertAdjacentHTML(
-              'beforeend',
+              "beforeend",
               `
-                           <option>${data[i].name}</option>
-                       `
+                <option>${data[i].name}</option>
+              `
             );
-            console.log(data[i].name);
-            console.log(data);
           }
         })
         .catch(function (err) {
-          console.log('Fetch Error :-S', err);
+          console.log("Fetch Error :-S", err);
         });
     } else {
       listE.innerHTML = ``;
     }
   }
 
-  let cityInput = document.querySelector('#cityChooser');
+  let cityInput = document.querySelector("#cityChooser");
 
-  cityInput.addEventListener('input', autoComplete);
+  cityInput.addEventListener("input", autoComplete);
 
   function updateCityValue(event) {
-    spinner.removeAttribute('hidden');
+    spinner.removeAttribute("hidden");
 
     let input = event.target.value;
 
@@ -82,13 +79,13 @@ async function loadEvent() {
       .then(function (data) {
         function output() {
           fetch(
-            'https://api.pexels.com/v1/search?query=' +
+            "https://api.pexels.com/v1/search?query=" +
               data.location.name +
-              '%20city',
+              "%20city",
             {
               headers: {
                 Authorization:
-                  '563492ad6f91700001000001b756c258bfb449658e3f81544e8b08df',
+                  "563492ad6f91700001000001b756c258bfb449658e3f81544e8b08df",
               },
             }
           )
@@ -96,30 +93,29 @@ async function loadEvent() {
               return response.json();
             })
             .then(function (photoData) {
-              console.log(photoData);
               document
-                .querySelector('#cityBG')
-                .setAttribute('src', photoData.photos[0].src.portrait);
+                .querySelector("#cityBG")
+                .setAttribute("src", photoData.photos[0].src.portrait);
             });
-          spinner.setAttribute('hidden', '');
-          document.querySelector('#temperatureE').innerHTML =
-            data.current.temp_c + ' °C';
-          document.querySelector('#skyConditionE').innerHTML =
+          spinner.setAttribute("hidden", "");
+          document.querySelector("#temperatureE").innerHTML =
+            data.current.temp_c + " °C";
+          document.querySelector("#skyConditionE").innerHTML =
             data.current.condition.text;
           iconUrl = data.current.condition.icon;
-          document.getElementById('condIcon').setAttribute('class', 'visible');
-          document.getElementById('condIcon').setAttribute('src', iconUrl);
-          document.querySelector('#humidityE').innerHTML =
-            'humidity:  ' + data.current.humidity + '%';
+          document.getElementById("condIcon").setAttribute("class", "visible");
+          document.getElementById("condIcon").setAttribute("src", iconUrl);
+          document.querySelector("#humidityE").innerHTML =
+            "humidity:  " + data.current.humidity + "%";
         }
         setTimeout(output, 1000);
       })
       .catch(function (err) {
-        console.log('Fetch Error :-S', err);
+        console.log("Fetch Error :-S", err);
       });
   }
 
-  cityInput.addEventListener('change', updateCityValue);
+  cityInput.addEventListener("change", updateCityValue);
 }
 
-window.addEventListener('load', loadEvent);
+window.addEventListener("load", loadEvent);
